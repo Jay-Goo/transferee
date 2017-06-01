@@ -235,10 +235,13 @@ public class Transferee implements DialogInterface.OnShowListener,
         void onDismiss();
     }
 
-    public void setOnTransfereeLongPressListener(TransferLayout.OnTransfereeLongPressListener listener){
+    public void setOnTransfereeLongPressListener(OnTransfereeLongPressListener listener){
         transLayout.setOnTransfereeLongPressListener(listener);
     }
 
+    public interface OnTransfereeLongPressListener {
+        void onLongPress(String sourceImageUrl);
+    }
 
 
 }

@@ -134,7 +134,6 @@ public class UniversalImageLoader implements com.hitomi.tilibrary.loader.ImageLo
 
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
-                callback.onFinish(null);
             }
         });
     }

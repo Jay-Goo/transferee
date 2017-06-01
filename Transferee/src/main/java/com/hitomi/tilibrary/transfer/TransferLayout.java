@@ -38,7 +38,7 @@ class TransferLayout extends FrameLayout {
     private TransferConfig transConfig;
 
     private OnLayoutResetListener layoutResetListener;
-    private OnTransfereeLongPressListener transLongPressListener;
+    private Transferee.OnTransfereeLongPressListener transLongPressListener;
 
     private Set<Integer> loadedIndexSet;
 
@@ -401,11 +401,9 @@ class TransferLayout extends FrameLayout {
         void onReset();
     }
 
-    public void setOnTransfereeLongPressListener(OnTransfereeLongPressListener listener){
+    public void setOnTransfereeLongPressListener(Transferee.OnTransfereeLongPressListener listener){
         transLongPressListener = listener;
     }
 
-    public interface OnTransfereeLongPressListener {
-        void onLongPress(String sourceImageUrl);
-    }
+
 }
