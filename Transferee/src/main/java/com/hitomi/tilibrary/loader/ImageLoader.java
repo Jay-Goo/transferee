@@ -67,6 +67,7 @@ public interface ImageLoader {
 
         @UiThread
         void onDelivered(int status);
+
     }
 
     interface ThumbnailCallback {

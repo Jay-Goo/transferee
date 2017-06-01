@@ -35,7 +35,6 @@ public class Transferee implements DialogInterface.OnShowListener,
     private TransferLayout transLayout;
     private TransferConfig transConfig;
     private OnTransfereeStateChangeListener transListener;
-
     // 因为Dialog的关闭有动画延迟，固不能使用 dialog.isShowing, 去判断 transferee 的显示逻辑
     private boolean shown;
 
@@ -235,5 +234,11 @@ public class Transferee implements DialogInterface.OnShowListener,
 
         void onDismiss();
     }
+
+    public void setOnTransfereeLongPressListener(TransferLayout.OnTransfereeLongPressListener listener){
+        transLayout.setOnTransfereeLongPressListener(listener);
+    }
+
+
 
 }

@@ -38,6 +38,8 @@ class TransferLayout extends FrameLayout {
     private TransferConfig transConfig;
 
     private OnLayoutResetListener layoutResetListener;
+    private OnTransfereeLongPressListener transLongPressListener;
+
     private Set<Integer> loadedIndexSet;
 
     /**
@@ -172,8 +174,8 @@ class TransferLayout extends FrameLayout {
      */
     private void createTransferViewPager() {
         transAdapter = new TransferAdapter(this,
-                transConfig.getSourceImageList().size(),
-                transConfig.getNowThumbnailIndex());
+                                           transConfig.getSourceImageList().size(),
+                                           transConfig.getNowThumbnailIndex());
         transAdapter.setOnInstantListener(instantListener);
 
         transViewPager = new ViewPager(context);
@@ -264,7 +266,28 @@ class TransferLayout extends FrameLayout {
                 dismiss(pos);
             }
         });
+
+        bindOnLongPressListener(imageView,pos);
     }
+
+    /**
+     * 为加载完的成图片ImageView 绑定长按事件
+     * @param imageView
+     * @param position
+     */
+    public void bindOnLongPressListener(final ImageView imageView, final int position){
+        imageView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+               if (transLongPressListener != null){
+                   String url = transConfig.getSourceImageList().get(position);
+                   transLongPressListener.onLongPress(url);
+               }
+                return false;
+            }
+        });
+    }
+
 
     /**
      * 开启 Transferee 关闭动画，并隐藏 transferLayout 中的各个组件
@@ -273,7 +296,7 @@ class TransferLayout extends FrameLayout {
      */
     public void dismiss(int pos) {
         if (transImage != null && transImage.getState()
-                == TransferImage.STATE_TRANS_OUT) // 防止双击
+                                  == TransferImage.STATE_TRANS_OUT) // 防止双击
             return;
 
         hideIndexIndicator();
@@ -378,4 +401,11 @@ class TransferLayout extends FrameLayout {
         void onReset();
     }
 
+    public void setOnTransfereeLongPressListener(OnTransfereeLongPressListener listener){
+        transLongPressListener = listener;
+    }
+
+    public interface OnTransfereeLongPressListener {
+        void onLongPress(String sourceImageUrl);
+    }
 }

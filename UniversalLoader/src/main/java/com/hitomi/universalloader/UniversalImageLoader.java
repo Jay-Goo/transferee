@@ -2,9 +2,11 @@ package com.hitomi.universalloader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
 
 import java.io.File;
 
@@ -146,5 +149,22 @@ public class UniversalImageLoader implements com.hitomi.tilibrary.loader.ImageLo
     public void clearCache() {
         ImageLoader.getInstance().getMemoryCache().clear();
         ImageLoader.getInstance().getDiskCache().clear();
+    }
+
+    /**
+     * 获取磁盘缓存的图片
+     * @param uri 这里的uri一般就是图片网址
+     * @return
+     */
+    public static Bitmap getDiskCacheImage(String uri){
+        File file = DiskCacheUtils.findInCache(uri,  ImageLoader.getInstance().getDiskCache());
+        try {
+
+            String path= file.getPath();
+            return BitmapFactory.decodeFile(path);
+
+        } catch (Exception e) {
+        }
+        return null;
     }
 }
