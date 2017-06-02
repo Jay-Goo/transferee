@@ -215,6 +215,10 @@ public class Transferee implements DialogInterface.OnShowListener,
         return true;
     }
 
+    public TransferLayout getTransLayout(){
+        return transLayout;
+    }
+
     /**
      * 设置 Transferee 显示和关闭的监听器
      *
